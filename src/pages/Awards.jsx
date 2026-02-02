@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchAwards } from "../services/api";
+import { AWARDS_FALLBACK } from "../data/awards";
+
 
 export default function Awards() {
   const [items, setItems] = useState([]);
@@ -14,10 +16,13 @@ export default function Awards() {
         setErr("");
         const res = await fetchAwards();
         if (!ok) return;
-        setItems(res.data || []);
+        setItems((res.data && res.data.length > 0) ? res.data : AWARDS_FALLBACK);
+
       } catch (e) {
         if (!ok) return;
-        setErr(e?.message || "Failed to load awards");
+        setErr("");
+setItems(AWARDS_FALLBACK);
+
       } finally {
         if (ok) setLoading(false);
       }

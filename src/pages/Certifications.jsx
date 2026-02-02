@@ -1,36 +1,19 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { motion } from "motion/react";
-import { fetchCertifications } from "../services/api";
+import { CERTS_FALLBACK } from "../data/certifications";
+
 
 export default function Certifications() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+  const [items] = useState(CERTS_FALLBACK);
+  const [loading] = useState(false);
+  const [err] = useState("");
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [waterfallFlow, setWaterfallFlow] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
 
   const waterfallRef = useRef(null);
   const gridRef = useRef(null);
-
-  useEffect(() => {
-    let ok = true;
-    (async () => {
-      try {
-        setLoading(true);
-        setErr("");
-        const res = await fetchCertifications();
-        if (!ok) return;
-        setItems(res.data || []);
-      } catch (e) {
-        if (!ok) return;
-        setErr(e?.message || "Failed to load certifications");
-      } finally {
-        if (ok) setLoading(false);
-      }
-    })();
-    return () => { ok = false; };
-  }, []);
 
   // Mouse tracking
   useEffect(() => {

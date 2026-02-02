@@ -1,44 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "motion/react";
-import api from "../services/api";
 
-function splitBullets(text) {
-  if (!text) return [];
+// With this:
+import { useMemo, useState } from "react";
+
+import { motion } from "motion/react";
+import { PROJECTS_FALLBACK } from "../data/projects";
+
+
+function splitBullets(value) {
+  if (value == null) return [];
+
+  // convert anything to string safely (array/object/null)
+  const text = Array.isArray(value) ? value.join("\n") : String(value);
+
+  // replace the literal "\n" with real new lines (NO replaceAll used)
   return text
-    .replaceAll("\\n", "\n")
+    .replace(/\\n/g, "\n")
     .split("\n")
     .map((s) => s.trim())
     .filter(Boolean);
 }
 
+
 function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+  const [projects] = useState(PROJECTS_FALLBACK);
+  const [loading] = useState(false);
+  const [err] = useState("");
   const [expanded, setExpanded] = useState({});
-
-  useEffect(() => {
-    let mounted = true;
-
-    (async () => {
-      try {
-        setLoading(true);
-        setErr("");
-        const res = await api.get("/projects");
-        if (!mounted) return;
-        setProjects(res.data || []);
-      } catch (e) {
-        if (!mounted) return;
-        setErr(e?.message || "Failed to load projects");
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   const sorted = useMemo(() => {
     return [...projects].sort((a, b) => (a.orderIndex ?? 999) - (b.orderIndex ?? 999));

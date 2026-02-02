@@ -1,34 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import api from "../services/api";
+import { SKILLS_FALLBACK } from "../data/skills";
 
 export default function Skills() {
-  const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState("");
+  const [skills] = useState(SKILLS_FALLBACK);
+  const [loading] = useState(false);
+  const [err] = useState("");
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
 
-  useEffect(() => {
-    let ok = true;
-    (async () => {
-      try {
-        setLoading(true);
-        const res = await api.get("/skills");
-        if (!ok) return;
-        // Use real API data from backend
-        setSkills(res.data || []);
-      } catch (e) {
-        if (!ok) return;
-        setErr(e?.message || "Failed to load skills");
-      } finally {
-        if (ok) setLoading(false);
-      }
-    })();
-    return () => { ok = false; };
-  }, []);
-
-  // Group skills by category - using real data from backend
+  // Group skills by category - using local data
   const groupedByCategory = useMemo(() => {
     const categories = {};
     skills.forEach(skill => {
@@ -866,7 +847,7 @@ export default function Skills() {
             ))}
           </div>
 
-          {/* Loading State */}
+          {/* Loading State - Always hidden since loading is false */}
           {loading && (
             <div className="loading-container">
               <div className="loading-spinner" />
@@ -874,7 +855,7 @@ export default function Skills() {
             </div>
           )}
 
-          {/* Error State */}
+          {/* Error State - Always hidden since err is empty string */}
           {err && !loading && (
             <div className="error-container">
               <div className="error-icon">⚠️</div>
@@ -883,7 +864,7 @@ export default function Skills() {
             </div>
           )}
 
-          {/* Skills Grid - NOW SHOWS ALL SKILLS FROM BACKEND */}
+          {/* Skills Grid - Always shows local skills data */}
           {!loading && !err && (
             <div className="skills-grid">
               {filteredSkills.map((skill, index) => (

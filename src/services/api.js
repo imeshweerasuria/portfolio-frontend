@@ -1,10 +1,5 @@
 import axios from "axios";
 
-// ✅ Accept either:
-// VITE_API_BASE_URL=http://localhost:8080
-// OR
-// VITE_API_BASE_URL=http://localhost:8080/api
-// and normalize it to always end with /api
 function normalizeBaseUrl(raw) {
   const base = (raw || "http://localhost:8080").replace(/\/+$/, "");
   return base.endsWith("/api") ? base : `${base}/api`;
@@ -15,7 +10,6 @@ const api = axios.create({
   timeout: 15000,
 });
 
-// ✅ Better error messages (so you see REAL reason instead of “Network Error”)
 api.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -31,15 +25,16 @@ api.interceptors.response.use(
         : `HTTP ${status}: Request failed`;
     } else if (err?.request) {
       err.message =
-        "Network Error: Backend not reachable (check backend is running + CORS + URL)";
+        "Network Error: Backend not reachable (fallback mode will be used)";
     }
     return Promise.reject(err);
   }
 );
 
+// ✅ exports used in pages
 export const fetchSkills = () => api.get("/skills");
 export const fetchProjects = () => api.get("/projects");
 export const fetchCertifications = () => api.get("/certifications");
-// export const fetchAwards = () => api.get("/awards"); // ❌ remove unless you actually create AwardController
+export const fetchAwards = () => api.get("/awards"); // ✅ add back
 
 export default api;
