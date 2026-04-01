@@ -453,68 +453,6 @@ function Home() {
       font-size: 1.2rem;
     }
     
-    /* Action Buttons - Professional */
-    .action-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: clamp(0.8rem, 1.5vw, 1rem);
-      margin: clamp(2rem, 3vw, 2.5rem) 0 clamp(1.5rem, 2.5vw, 2rem) 0;
-    }
-    
-    .action-button {
-      padding: clamp(0.9rem, 1.2vw, 1rem) clamp(1.8rem, 2.5vw, 2.2rem);
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: clamp(0.9rem, 1.1vw, 1rem);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      min-width: 160px;
-      font-family: 'Inter', sans-serif;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-    
-    .action-primary {
-      background: linear-gradient(135deg, 
-        rgba(59, 130, 246, 0.9) 0%,
-        rgba(37, 99, 235, 0.9) 100%);
-      color: white;
-      border: 2px solid rgba(59, 130, 246, 0.5);
-      box-shadow: 
-        0 8px 20px rgba(59, 130, 246, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    }
-    
-    .action-secondary {
-      background: linear-gradient(135deg,
-        rgba(59, 130, 246, 0.15) 0%,
-        rgba(37, 99, 235, 0.15) 100%);
-      color: #3b82f6;
-      border: 2px solid rgba(59, 130, 246, 0.3);
-    }
-    
-    .action-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 
-        0 12px 30px rgba(59, 130, 246, 0.4);
-    }
-    
-    .action-primary:hover {
-      background: linear-gradient(135deg, 
-        rgba(37, 99, 235, 0.95) 0%,
-        rgba(29, 78, 216, 0.95) 100%);
-    }
-    
-    .action-secondary:hover {
-      background: linear-gradient(135deg,
-        rgba(59, 130, 246, 0.25) 0%,
-        rgba(37, 99, 235, 0.25) 100%);
-    }
-    
     /* Education Section */
     .education-section {
       margin: clamp(1.5rem, 2vw, 2rem) 0;
@@ -846,15 +784,6 @@ function Home() {
         font-size: 2.5rem;
       }
       
-      .action-buttons {
-        flex-direction: column;
-      }
-      
-      .action-button {
-        width: 100%;
-        justify-content: center;
-      }
-      
       .tech-stack-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -994,43 +923,6 @@ function Home() {
                 ))}
               </div>
             </motion.div>
-            
-            {/* Action Buttons */}
-            <div className="action-buttons">
-              <motion.a
-                href="/projects"
-                className="action-button action-primary"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, type: "spring" }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <span>View Projects</span>
-                <span>→</span>
-              </motion.a>
-              <motion.a
-                href="/skills"
-                className="action-button action-secondary"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, type: "spring" }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <span>Technical Skills</span>
-                <span>⚡</span>
-              </motion.a>
-              <motion.a
-                href={MAILTO}
-                className="action-button action-secondary"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6, type: "spring" }}
-                whileHover={{ scale: 1.03 }}
-              >
-                <span>Contact Me</span>
-                <span>📧</span>
-              </motion.a>
-            </div>
             
             {/* Education Section */}
             <div className="education-section">

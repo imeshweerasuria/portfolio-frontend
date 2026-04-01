@@ -1,5 +1,3 @@
-
-// With this:
 import { useMemo, useState } from "react";
 
 import { motion } from "motion/react";
@@ -323,29 +321,16 @@ function Projects() {
       font-family: 'Inter', sans-serif;
     }
 
-    .action-button.github {
+    .action-button.demo {
       background: linear-gradient(135deg, #3b82f6, #2563eb);
       color: white;
       box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
     }
 
-    .action-button.github:hover {
+    .action-button.demo:hover {
       transform: translateY(-2px);
       background: linear-gradient(135deg, #2563eb, #1d4ed8);
       box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
-    }
-
-    .action-button.demo {
-      background: rgba(255, 255, 255, 0.08);
-      color: #e2e8f0;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .action-button.demo:hover {
-      background: rgba(59, 130, 246, 0.15);
-      border-color: rgba(59, 130, 246, 0.3);
-      color: #ffffff;
-      transform: translateY(-2px);
     }
 
     /* No Projects State */
@@ -575,20 +560,8 @@ function Projects() {
                           </div>
                         )}
 
-                        {/* Action Buttons - FIXED: Now fully visible with proper spacing */}
+                        {/* Action Buttons - Only Live Demo button remains */}
                         <div className="project-actions">
-                          {project.githubLink && (
-                            <motion.a
-                              href={project.githubLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="action-button github"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <span>GitHub</span>
-                            </motion.a>
-                          )}
                           {project.liveLink && (
                             <motion.a
                               href={project.liveLink}
